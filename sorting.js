@@ -133,41 +133,76 @@ function partition(array, start, end) {
 /*3*/
 
 function swap(array, i, j) {
-    const tmp = array[i];
-    array[i] = array[j];
-    array[j] = tmp;
-};
-
-function qSort (array, start=0, end = array.length) {
-    if(start >= end) {
-        return array;
-    }
-    console.log('start: ', start, 'end: ', end)
-    const middle = partition(array, start, end);
-    console.log('middle: ', middle)
-    array = qSort(array, start, middle);
-    array = qSort(array, middle + 1, end);
-    return array;
-}                       /*i*/
-               /*j*/   /*p*/   
-testArray = [89, 30, 25, 32, 72]
-                //[25, 30, 89, 32, 72]
-function partition(array, start, end) {
-    const randomIndex = Math.floor(Math.random() * (end-start) + start)
-    const pivot = array[randomIndex]
-    let j = start
-    // if(randomIndex === start) {
-    //     j = start + 1
-    // }
-    for (i = start; i < end -1; i++) {
-        if (array[i] <= pivot) {
-            
-            swap(array, i, j);
-            j++;
-        }
-    }
-    //swap(array, end-1, j)
-    return j
+  const tmp = array[i];
+  array[i] = array[j];
+  array[j] = tmp;
 }
 
-console.log(qSort(testArray, 0, testArray.length))
+function qSort(array, start = 0, end = array.length) {
+  if (start >= end) {
+    return array;
+  }
+  console.log("start: ", start, "end: ", end);
+  const middle = partition(array, start, end);
+  console.log("middle: ", middle);
+  array = qSort(array, start, middle);
+  array = qSort(array, middle + 1, end);
+  return array;
+} /*i*/ /*p*/
+/*j*/ testArray = [89, 30, 25, 32, 72];
+//[25, 30, 89, 32, 72]
+function partition(array, start, end) {
+  const randomIndex = Math.floor(Math.random() * (end - start) + start);
+  const pivot = array[randomIndex];
+  let j = start;
+  // if(randomIndex === start) {
+  //     j = start + 1
+  // }
+  for (i = start; i < end - 1; i++) {
+    if (array[i] <= pivot) {
+      swap(array, i, j);
+      j++;
+    }
+  }
+  //swap(array, end-1, j)
+  return j;
+}
+
+console.log(qSort(testArray, 0, testArray.length));
+
+/**
+ * Interview Questions
+ *
+ * Write an algorithm to sort an array containing only 1s and 0s.
+ * Your algorithm should only iterate through the array once.
+ * You can't use any extra memory to store the whole dataset.
+ *
+ * Input: [0,1,1,0,0,1,0,1,0,1]
+ * Output: [0,0,0,0,0,0,1,1,1,1,1]
+ *
+ * Use 2 point approach
+ * anything equals to 1 to the right and 0 to left
+ *
+ * i at start and j at the end
+ * compare each and swap if i > j
+ */
+
+function bitSort(arr) {
+  let j = 0;
+
+  for (let i = arr.length - 1; i > j; i--) {
+    if (arr[i] < arr[j]) {
+      swap(arr, i, j);
+      j++;
+    }
+    if (arr[i] === arr[j]) {
+      if (arr[i] === 0) {
+        i++;
+      } else {
+      }
+    }
+  }
+  return arr;
+}
+
+console.log(bitSort([1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0]));
