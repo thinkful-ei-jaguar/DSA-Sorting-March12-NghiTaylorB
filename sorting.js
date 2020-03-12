@@ -142,17 +142,20 @@ function qSort(array, start = 0, end = array.length) {
   if (start >= end) {
     return array;
   }
-  console.log("start: ", start, "end: ", end);
+  //   console.log("start: ", start, "end: ", end);
   const middle = partition(array, start, end);
   console.log("middle: ", middle);
   array = qSort(array, start, middle);
   array = qSort(array, middle + 1, end);
   return array;
-} /*i*/ /*p*/
-/*j*/ testArray = [89, 30, 25, 32, 72];
+} /*p*/
+
+/*i*/ /*j*/ testArray = [89, 30, 25, 32, 72];
 //[25, 30, 89, 32, 72]
+
 function partition(array, start, end) {
-  const randomIndex = Math.floor(Math.random() * (end - start) + start);
+  console.log(array, start, end);
+  const randomIndex = Math.floor(Math.random() * (end - 1 - start) + start);
   const pivot = array[randomIndex];
   let j = start;
   // if(randomIndex === start) {
@@ -164,11 +167,12 @@ function partition(array, start, end) {
       j++;
     }
   }
-  //swap(array, end-1, j)
+  swap(array, end - 1, j);
+
   return j;
 }
 
-console.log(qSort(testArray, 0, testArray.length));
+console.log("final:", qSort(testArray, 0, testArray.length));
 
 /**
  * Interview Questions
@@ -205,4 +209,4 @@ function bitSort(arr) {
   return arr;
 }
 
-console.log(bitSort([1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0]));
+// console.log(bitSort([1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0]));
