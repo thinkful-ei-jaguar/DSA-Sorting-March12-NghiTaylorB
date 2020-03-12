@@ -411,13 +411,6 @@ function main() {
   links.insertLast("Johnathannn");
   links.insertLast("Bob");
 
-  let links2 = new linkedList();
-  links2.insertLast("Tauhida");
-  links2.insertLast("Taylor");
-  links2.insertLast("Nghi");
-  links2.insertLast("Johnathannn");
-  links2.insertLast("Bob");
-    links2.empty()
   console.log(mergeSortLinks(links));
 }
 
@@ -427,18 +420,18 @@ main();
 /*6*/
 
 const arrYay = [2, 4, 12, 16, 5, 1]
-//largest value is = 16
-//smallest value is = 1
-//two temp arrays
+// largest value is = 16
+// smallest value is = 1
+// two temp arrays
 
-// function bucketSort(arr, max, min) {
-//     let tempArr1 = [];
-//     let tempArr2 = [];
-//     let middle = Math.floor(max + min/2)
-//     for(i=0; i=arr.length; i++) {
-//         if(arr[i] <= middle) {
-//             tempArr1.push(arr[i])
-//         }
-//         if(arr[i] )
-//     }
-// }
+function bucketSort(arr, max, min) {
+    let tempArr1 = [];
+    let tempArr2 = [];
+    let middle = Math.floor(max + min/2)
+    for(i=0; i=arr.length; i++) {
+        if(arr[i] <= middle) {
+            tempArr1.push(arr[i])
+        }
+        if(arr[i] )
+    }
+}
