@@ -358,18 +358,30 @@ function mergeEm(left, right, arr) {
  * You will need your linked list class from previous lesson to create the list and
  * use all of its supplemental functions to solve this problem.
  */
-
-function mergeSortLinks(links1, links2) {
-  const middle = findMiddleOfLinks(links1);
-  left = links1.getLeft(middle);
-  left = links1;
-  let right = links2.getRight(middle);
-  right = links2;
-
-  left = mergeSortLinks(left);
-  right = mergeSortLinks(right);
-  return merge(left, right);
+function arrayMaker(links){
+    const arr = []
+    let currNode = links.head
+    if(currNode != null) {
+        while(currNode.next != null) {
+            arr.push(currNode.value)
+            currNode = currNode.next
+        }
+        
+    }
+    arr.push(currNode.value)
+    return arr
 }
+
+function mergeSortLinks(ll) {
+   const arr = arrayMaker(ll) //makes arry from ll starting line 361
+   ll.empty()//resets ll to head: null
+   const sortedArr = mSort(arr) //uses merge sort method with array
+   for(i=0; i<sortedArr.length; i++) { //loops through sorted array and inserts orderd vals into ll 
+       ll.insertLast(sortedArr[i])
+   }
+   return ll
+}
+
 
 function findMiddleOfLinks(links) {
   let currNode = links.head;
@@ -405,8 +417,28 @@ function main() {
   links2.insertLast("Nghi");
   links2.insertLast("Johnathannn");
   links2.insertLast("Bob");
-
-  console.log(mergeSortLinks(links, links2));
+    links2.empty()
+  console.log(mergeSortLinks(links));
 }
 
 main();
+
+
+/*6*/
+
+const arrYay = [2, 4, 12, 16, 5, 1]
+//largest value is = 16
+//smallest value is = 1
+//two temp arrays
+
+// function bucketSort(arr, max, min) {
+//     let tempArr1 = [];
+//     let tempArr2 = [];
+//     let middle = Math.floor(max + min/2)
+//     for(i=0; i=arr.length; i++) {
+//         if(arr[i] <= middle) {
+//             tempArr1.push(arr[i])
+//         }
+//         if(arr[i] )
+//     }
+// }

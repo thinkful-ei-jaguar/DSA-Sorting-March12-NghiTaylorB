@@ -48,6 +48,11 @@ class LinkedList {
     return currNode;
   }
 
+  empty(){
+    this.head = null;
+    return;
+  }
+
   remove(item) {
     // If the list is empty
     if (!this.head) {
@@ -200,6 +205,17 @@ class LinkedList {
           previous.next = new _Node(item, current);
         }
     }
+  }
+  findMiddle() {
+    let slowPtr = this.head;
+    let fastPtr = this.head;
+    if(this.head !== null) {
+      while( fastPtr !== null && fastPtr.next !== null ) {
+        fastPtr = fastPtr.next.next;
+        slowPtr = slowPtr.next;
+      }
+    }
+    return slowPtr.value
   }
 }
 
