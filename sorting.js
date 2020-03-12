@@ -1,3 +1,5 @@
+const linkedList = require("./linkedList");
+
 function mergeSort(array) {
   if (array.length <= 1) {
     return array;
@@ -146,23 +148,122 @@ function qSort(array, start = 0, end = array.length) {
   array = qSort(array, start, middle);
   array = qSort(array, middle + 1, end);
   return array;
-}                            
-                 
+}
+
 const testArray = [32, 25, 30, 89, 72];
-const testArray2 = [89, 30, 25, 32, 72, 70, 51, 42, 25, 24, 53, 55, 78, 50, 13, 40, 48, 32, 26, 2, 14, 33, 45, 72, 56, 44, 21, 88, 27, 68, 15, 62, 93, 98, 73, 28, 16, 46, 87, 28, 65, 38, 67, 16, 85, 63, 23, 69, 64, 91, 9, 70, 81, 27, 97, 82, 6, 88, 3, 7, 46, 13, 11, 64, 76, 31, 26, 38, 28, 13, 17, 69, 90, 1,6, 7, 64, 43, 9, 73, 80, 98, 46, 27, 22, 87, 49, 83, 6, 39, 42, 51, 54, 84, 34, 53, 78, 40, 14, 5]
+const testArray2 = [
+  89,
+  30,
+  25,
+  32,
+  72,
+  70,
+  51,
+  42,
+  25,
+  24,
+  53,
+  55,
+  78,
+  50,
+  13,
+  40,
+  48,
+  32,
+  26,
+  2,
+  14,
+  33,
+  45,
+  72,
+  56,
+  44,
+  21,
+  88,
+  27,
+  68,
+  15,
+  62,
+  93,
+  98,
+  73,
+  28,
+  16,
+  46,
+  87,
+  28,
+  65,
+  38,
+  67,
+  16,
+  85,
+  63,
+  23,
+  69,
+  64,
+  91,
+  9,
+  70,
+  81,
+  27,
+  97,
+  82,
+  6,
+  88,
+  3,
+  7,
+  46,
+  13,
+  11,
+  64,
+  76,
+  31,
+  26,
+  38,
+  28,
+  13,
+  17,
+  69,
+  90,
+  1,
+  6,
+  7,
+  64,
+  43,
+  9,
+  73,
+  80,
+  98,
+  46,
+  27,
+  22,
+  87,
+  49,
+  83,
+  6,
+  39,
+  42,
+  51,
+  54,
+  84,
+  34,
+  53,
+  78,
+  40,
+  14,
+  5
+];
 
 function partition(array, start, end) {
-  
   const pivot = array[start];
   let j = start + 1;
-  let i = end - 1
-  while(j <= i) {
+  let i = end - 1;
+  while (j <= i) {
     if (array[i] <= pivot) {
       swap(array, i, j);
       j++;
-    }
-    else {
-        --i
+    } else {
+      --i;
     }
   }
   swap(array, start, i);
@@ -212,44 +313,100 @@ function bitSort(arr) {
 /*Exercise 4*/
 
 function mSort(arr) {
-    if(arr.length <= 1) {
-        return arr
-    }
+  if (arr.length <= 1) {
+    return arr;
+  }
 
-    const middle = Math.floor(arr.length/2);
-    let left = arr.slice(0, middle)
-    let right = arr.slice(middle, arr.length)
+  const middle = Math.floor(arr.length / 2);
+  let left = arr.slice(0, middle);
+  let right = arr.slice(middle, arr.length);
 
-    left = mSort(left)
-    right = mSort(right)
+  left = mSort(left);
+  right = mSort(right);
 
-    
-    return mergeEm(left, right, arr)
+  return mergeEm(left, right, arr);
 }
 
-function mergeEm (left, right, arr) {
-    let indexLeft = 0
-    let indexRight = 0
-    let indexOutput = 0
+function mergeEm(left, right, arr) {
+  let indexLeft = 0;
+  let indexRight = 0;
+  let indexOutput = 0;
 
-    while(indexLeft < left.length && indexRight < right.length){
-        if(left[indexLeft] < right[indexRight]) {
-            arr[indexOutput++] = left[indexLeft++]
-        }
-        else {
-            arr[indexOutput++] = right[indexRight++]
-        }
+  while (indexLeft < left.length && indexRight < right.length) {
+    if (left[indexLeft] < right[indexRight]) {
+      arr[indexOutput++] = left[indexLeft++];
+    } else {
+      arr[indexOutput++] = right[indexRight++];
     }
+  }
 
-    for(let i=indexLeft; i<left.length; i++) {
-        arr[indexOutput++] = left[i]
-    }
+  for (let i = indexLeft; i < left.length; i++) {
+    arr[indexOutput++] = left[i];
+  }
 
-    for(let i=indexRight; i < right.length; i++) {
-        arr[indexOutput++] = right[i]
-    }
-    return arr
+  for (let i = indexRight; i < right.length; i++) {
+    arr[indexOutput++] = right[i];
+  }
+  return arr;
 }
 
 //console.log(mSort(testArray2))
 
+/**
+ * #5
+ * Given a Linked List, sort the linked list using merge sort.
+ * You will need your linked list class from previous lesson to create the list and
+ * use all of its supplemental functions to solve this problem.
+ */
+
+function mergeSortLinks(links1, links2) {
+  const middle = findMiddleOfLinks(links1);
+  left = links1.getLeft(middle);
+  left = links1;
+  let right = links2.getRight(middle);
+  right = links2;
+
+  left = mergeSortLinks(left);
+  right = mergeSortLinks(right);
+  return merge(left, right);
+}
+
+function findMiddleOfLinks(links) {
+  let currNode = links.head;
+  let counter = 0;
+  while (currNode.next) {
+    counter++;
+    currNode = currNode.next;
+  }
+  let item = "";
+  currNode = links.head;
+  counter = Math.floor(counter / 2);
+
+  for (let i = 0; i <= counter; i++) {
+    if (i === counter) {
+      item = currNode.value;
+    }
+    currNode = currNode.next;
+  }
+  return item;
+}
+
+function main() {
+  let links = new linkedList();
+  links.insertLast("Tauhida");
+  links.insertLast("Taylor");
+  links.insertLast("Nghi");
+  links.insertLast("Johnathannn");
+  links.insertLast("Bob");
+
+  let links2 = new linkedList();
+  links2.insertLast("Tauhida");
+  links2.insertLast("Taylor");
+  links2.insertLast("Nghi");
+  links2.insertLast("Johnathannn");
+  links2.insertLast("Bob");
+
+  console.log(mergeSortLinks(links, links2));
+}
+
+main();
