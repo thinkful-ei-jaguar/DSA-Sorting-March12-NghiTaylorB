@@ -35,49 +35,49 @@ function merge(left, right, array) {
 }
 
 //Exercise 1
-(21, 1, 26, 45, 29, 28, 2, 9)(16, 49, 39, 27, 43, 34, 46, 40)(21, 1, 26, 45)(
-  29,
-  28,
-  2,
-  9
-)(16, 49, 39, 27)(
-  43,
-  34,
-  46,
-  40
-)(21, 1)(/*call3*/ 26, 45)(29, 28)(2, 9)(16, 49)(39, 27)(43, 34)(
-  46,
-  40
-); /*call 16*/
+// (21, 1, 26, 45, 29, 28, 2, 9)(16, 49, 39, 27, 43, 34, 46, 40)(21, 1, 26, 45)(
+//   29,
+//   28,
+//   2,
+//   9
+// )(16, 49, 39, 27)(
+//   43,
+//   34,
+//   46,
+//   40
+// )(21, 1)(/*call3*/ 26, 45)(29, 28)(2, 9)(16, 49)(39, 27)(43, 34)(
+//   46,
+//   40
+// ); /*call 16*/
 
-//middle
-21,
-  1,
-  /*<- first two lists*/ 26,
-  45,
-  29,
-  28,
-  2,
-  9,
-  16,
-  49,
-  39,
-  27,
-  43,
-  34,
-  46,
-  (40)[(1, 21)], //input
-  [26, 45],
-  [28, 29],
-  [2, 9],
-  [16, 49],
-  [27, 39],
-  [34, 43],
-  [40, 46][(1, 21, 26, 45)],
-  [2, 9, 28, 29] /*<-7th Merge*/,
-  [16, 27, 39, 49],
-  [34, 40, 43, 46][(1, 2, 9, 21, 26, 28, 29, 45)],
-  [16, 27, 34, 39, 40, 43, 46, 49];
+// //middle
+// 21,
+//   1,
+//   /*<- first two lists*/ 26,
+//   45,
+//   29,
+//   28,
+//   2,
+//   9,
+//   16,
+//   49,
+//   39,
+//   27,
+//   43,
+//   34,
+//   46,
+//   (40)[(1, 21)], //input
+//   [26, 45],
+//   [28, 29],
+//   [2, 9],
+//   [16, 49],
+//   [27, 39],
+//   [34, 43],
+//   [40, 46][(1, 21, 26, 45)],
+//   [2, 9, 28, 29] /*<-7th Merge*/,
+//   [16, 27, 39, 49],
+//   [34, 40, 43, 46][(1, 2, 9, 21, 26, 28, 29, 45)],
+//   [16, 27, 34, 39, 40, 43, 46, 49];
 
 /**
  * Exercise 2
@@ -129,3 +129,45 @@ function partition(array, start, end) {
   swap(array, end - 1, j);
   return j;
 }
+
+/*3*/
+
+function swap(array, i, j) {
+    const tmp = array[i];
+    array[i] = array[j];
+    array[j] = tmp;
+};
+
+function qSort (array, start=0, end = array.length) {
+    if(start >= end) {
+        return array;
+    }
+    console.log('start: ', start, 'end: ', end)
+    const middle = partition(array, start, end);
+    console.log('middle: ', middle)
+    array = qSort(array, start, middle);
+    array = qSort(array, middle + 1, end);
+    return array;
+}                       /*i*/
+               /*j*/   /*p*/   
+testArray = [89, 30, 25, 32, 72]
+                //[25, 30, 89, 32, 72]
+function partition(array, start, end) {
+    const randomIndex = Math.floor(Math.random() * (end-start) + start)
+    const pivot = array[randomIndex]
+    let j = start
+    // if(randomIndex === start) {
+    //     j = start + 1
+    // }
+    for (i = start; i < end -1; i++) {
+        if (array[i] <= pivot) {
+            
+            swap(array, i, j);
+            j++;
+        }
+    }
+    //swap(array, end-1, j)
+    return j
+}
+
+console.log(qSort(testArray, 0, testArray.length))
