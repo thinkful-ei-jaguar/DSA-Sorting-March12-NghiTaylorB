@@ -36,21 +36,31 @@ function merge(left, right, array) {
   return array;
 }
 
-//Exercise 1
-// (21, 1, 26, 45, 29, 28, 2, 9)(16, 49, 39, 27, 43, 34, 46, 40)(21, 1, 26, 45)(
-//   29,
-//   28,
-//   2,
-//   9
-// )(16, 49, 39, 27)(
-//   43,
-//   34,
-//   46,
-//   40
-// )(21, 1)(/*call3*/ 26, 45)(29, 28)(2, 9)(16, 49)(39, 27)(43, 34)(
-//   46,
-//   40
-// ); /*call 16*/
+/**
+ * 
+ * #1
+ * Given the following list of numbers 21, 1, 26, 45, 29, 28, 2, 9, 16, 49, 39, 27, 43, 34, 46, 40
+ * What is the resulting list that will be sorted after 3 recursive calls to mergesort?
+ * What is the resulting list that will be sorted after 16 recursive calls to mergesort?
+ * What are the first 2 lists to be merged?
+ * Which two lists would be merged on the 7th merge?
+ * 
+ * 
+(21, 1, 26, 45, 29, 28, 2, 9)(16, 49, 39, 27, 43, 34, 46, 40)(21, 1, 26, 45)(
+  29,
+  28,
+  2,
+  9
+)(16, 49, 39, 27)(
+  43,
+  34,
+  46,
+  40
+)(21, 1)( // call3 \\ 26, 45)(29, 28)(2, 9)(16, 49)(39, 27)(43, 34)(
+  46,
+  40
+); call 16
+ */
 
 // //middle
 // 21,
@@ -82,7 +92,7 @@ function merge(left, right, array) {
 //   [16, 27, 34, 39, 40, 43, 46, 49];
 
 /**
- * Exercise 2
+ * #2
  * 3 9 1 14 17 24 22 20
  *
  * The pivot could have been 17, but could not have been 14.
@@ -132,7 +142,16 @@ function partition(array, start, end) {
   return j;
 }
 
-/*3*/
+/**
+ *
+ * #3
+ * Write a function qSort that sorts a dataset using the quicksort algorithm.
+ * The dataset to sort is: 89 30 25 32 72 70 51 42 25 24 53 55 78 50 13 40 48
+ * 32 26 2 14 33 45 72 56 44 21 88 27 68 15 62 93 98 73 28 16 46 87 28 65 38
+ * 67 16 85 63 23 69 64 91 9 70 81 27 97 82 6 88 3 7 46 13 11 64 76 31 26 38
+ * 28 13 17 69 90 1 6 7 64 43 9 73 80 98 46 27 22 87 49 83 6 39 42 51 54 84 34
+ * 53 78 40 14 5.
+ */
 
 function swap(array, i, j) {
   const tmp = array[i];
@@ -310,7 +329,10 @@ function bitSort(arr) {
 
 // console.log(bitSort([1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0]));
 
-/*Exercise 4*/
+/**
+ * #4
+ * Write a function mSort that sorts the dataset above using the merge sort algorithm.
+ */
 
 function mSort(arr) {
   if (arr.length <= 1) {
@@ -358,30 +380,29 @@ function mergeEm(left, right, arr) {
  * You will need your linked list class from previous lesson to create the list and
  * use all of its supplemental functions to solve this problem.
  */
-function arrayMaker(links){
-    const arr = []
-    let currNode = links.head
-    if(currNode != null) {
-        while(currNode.next != null) {
-            arr.push(currNode.value)
-            currNode = currNode.next
-        }
-        
+function arrayMaker(links) {
+  const arr = [];
+  let currNode = links.head;
+  if (currNode != null) {
+    while (currNode.next != null) {
+      arr.push(currNode.value);
+      currNode = currNode.next;
     }
-    arr.push(currNode.value)
-    return arr
+  }
+  arr.push(currNode.value);
+  return arr;
 }
 
 function mergeSortLinks(ll) {
-   const arr = arrayMaker(ll) //makes arry from ll starting line 361
-   ll.empty()//resets ll to head: null
-   const sortedArr = mSort(arr) //uses merge sort method with array
-   for(i=0; i<sortedArr.length; i++) { //loops through sorted array and inserts orderd vals into ll 
-       ll.insertLast(sortedArr[i])
-   }
-   return ll
+  const arr = arrayMaker(ll); //makes arry from ll starting line 361
+  ll.empty(); //resets ll to head: null
+  const sortedArr = mSort(arr); //uses merge sort method with array
+  for (i = 0; i < sortedArr.length; i++) {
+    //loops through sorted array and inserts orderd vals into ll
+    ll.insertLast(sortedArr[i]);
+  }
+  return ll;
 }
-
 
 function findMiddleOfLinks(links) {
   let currNode = links.head;
@@ -411,27 +432,42 @@ function main() {
   links.insertLast("Johnathannn");
   links.insertLast("Bob");
 
-  console.log(mergeSortLinks(links));
+  //   console.log(mergeSortLinks(links));
 }
 
 main();
 
+/**
+ * #6
+ * Write an O(n) algorithm to sort an array of integers, where you know in advance what the
+ * lowest and highest values are.
+ * You can't use arr.splice(), shift() or unshift() for this exercise.
+ *
+ * Input: [3, 28, 4, 12, 16, 21, 14, 8, 3] Max: 28  Min: 3
+ * Output: [3, 3, 4, 8, 12, 14, 16, 21, 28]
+ *
+ * length = 9
+ * Max - min = range (28)
+ *
+ * Every index divide by range to get a % value
+ */
 
-/*6*/
-
-const arrYay = [2, 4, 12, 16, 5, 1]
-// largest value is = 16
-// smallest value is = 1
-// two temp arrays
+const sampleArr = [3, 28, 4, 12, 16, 21, 14, 8, 3];
 
 function bucketSort(arr, max, min) {
-    let tempArr1 = [];
-    let tempArr2 = [];
-    let middle = Math.floor(max + min/2)
-    for(i=0; i=arr.length; i++) {
-        if(arr[i] <= middle) {
-            tempArr1.push(arr[i])
-        }
-        if(arr[i] )
+  const range = max - min;
+  let indices = {};
+  let sortedArr = [];
+  for (i = 0; i < arr.length; i++) {
+    const index = Math.round(((arr[i] - min) / range) * arr.length);
+    console.log(index);
+    if (sortedArr[index] === undefined) {
+      sortedArr[index] = arr[i];
+    } else {
+      sortedArr[index + 1] = arr[i];
     }
+  }
+  return sortedArr;
 }
+
+console.log(bucketSort(sampleArr, 28, 3));
